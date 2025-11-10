@@ -17,6 +17,7 @@ A modern React + Vite application for managing tasks efficiently. This project l
 🧩 Utility libraries like clsx for dynamic class management
 
 📁 Project Structure
+
 react-task-manager/
 ├── src/
 │   ├── components/        # Reusable React components
@@ -30,7 +31,10 @@ react-task-manager/
 ├── postcss.config.js      # PostCSS configuration
 ├── tsconfig.json          # TypeScript settings
 └── vite.config.js         # Vite configuration
+
+
 ⚙️ Configuration Overview
+
 package.json
 {
   "name": "react-task-manager",
@@ -126,3 +130,5 @@ This project is open-source under the MIT License.
 
 Author: [Margaret Ndung'u]
 Built with ❤️ using React, Vite, and Tailwind CSS
+
+Github pages publishing link:  plp-mern-stack-development.github.io.

@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
 
+interface Task {
+  id: number;
+  text: string;
+  completed: boolean;
+  createdAt: string;
+}
+
 /**
  * Custom hook for managing tasks with localStorage persistence
  */
 const useLocalStorageTasks = () => {
   // Initialize state from localStorage or with empty array
-  const [tasks, setTasks] = useState(() => {
+  const [tasks, setTasks] = useState<Task[]>(() => {
     const savedTasks = localStorage.getItem('tasks');
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
@@ -17,7 +24,7 @@ const useLocalStorageTasks = () => {
   }, [tasks]);
 
   // Add a new task
-  const addTask = (text) => {
+  const addTask = (text: string) => {
     if (text.trim()) {
       setTasks([
         ...tasks,
@@ -32,7 +39,7 @@ const useLocalStorageTasks = () => {
   };
 
   // Toggle task completion status
-  const toggleTask = (id) => {
+  const toggleTask = (id: number) => {
     setTasks(
       tasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
@@ -41,7 +48,7 @@ const useLocalStorageTasks = () => {
   };
 
   // Delete a task
-  const deleteTask = (id) => {
+  const deleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
@@ -64,15 +71,15 @@ const TaskManager = () => {
   });
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addTask(newTaskText);
     setNewTaskText('');
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-      <h2 className="text-2xl font-bold mb-6">Task Manager</h2>
+    <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Task Manager</h1>
 
       {/* Task input form */}
       <form onSubmit={handleSubmit} className="mb-6">
@@ -82,7 +89,7 @@ const TaskManager = () => {
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
             placeholder="Add a new task..."
-            className="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+            className="task-input flex-grow px-4 py-2 border rounded-lg focus:outline-none dark:bg-gray-700 dark:border-gray-600"
           />
           <Button type="submit" variant="primary">
             Add Task
@@ -94,21 +101,21 @@ const TaskManager = () => {
       <div className="flex gap-2 mb-4">
         <Button
           variant={filter === 'all' ? 'primary' : 'secondary'}
-          size="sm"
+          className="filter-button px-3 py-1 text-sm"
           onClick={() => setFilter('all')}
         >
           All
         </Button>
         <Button
           variant={filter === 'active' ? 'primary' : 'secondary'}
-          size="sm"
+          className="filter-button px-3 py-1 text-sm"
           onClick={() => setFilter('active')}
         >
           Active
         </Button>
         <Button
           variant={filter === 'completed' ? 'primary' : 'secondary'}
-          size="sm"
+          className="filter-button px-3 py-1 text-sm"
           onClick={() => setFilter('completed')}
         >
           Completed
@@ -125,7 +132,7 @@ const TaskManager = () => {
           filteredTasks.map((task) => (
             <li
               key={task.id}
-              className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 dark:border-gray-700"
+              className="task-item flex items-center justify-between p-3"
             >
               <div className="flex items-center gap-3">
                 <input
@@ -144,7 +151,7 @@ const TaskManager = () => {
               </div>
               <Button
                 variant="danger"
-                size="sm"
+                className="px-3 py-1 text-sm"
                 onClick={() => deleteTask(task.id)}
                 aria-label="Delete task"
               >

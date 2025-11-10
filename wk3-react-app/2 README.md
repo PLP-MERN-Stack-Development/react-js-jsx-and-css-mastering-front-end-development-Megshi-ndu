@@ -126,6 +126,8 @@ Zustand or Redux Toolkit for state management
 
 📝 License
 
+https://react-js-jsx-and-css-mastering-fron-hazel.vercel.app/
+
 This project is open-source under the MIT License.
 
 Author: [Margaret Ndung'u]
